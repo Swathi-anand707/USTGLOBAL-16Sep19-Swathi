@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<bean id="hello" class="com.ustglobal.springcore1.di.Hello"
+		init-method="init" destroy-method="destroy">
+		<property name="msg" value="I Love U" />
+		<property name="map">
+			<map>
+				<entry key="one" value="1" />
+				<entry key="two" value="2" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="dog" class="com.ustglobal.springcore1.di.Dog"
+		primary="true">
+	</bean>
+
+	<bean id="human" class="com.ustglobal.springcore1.di.Human" />
+	<bean id="animal" class="com.ustglobal.springcore1.di.Cat" />
+	<bean id="BeanPostProcessor"
+		class="com.ustglobal.springcore1.di.BeanPostProcessorClass" />
+	<bean id="BeanFactoryPostProcessor"
+		class="com.ustglobal.springcore1.di.BeanFactoryPostProcessorClass" />
+
+	<bean id="pet" class="com.ustglobal.springcore1.di.Pet"
+		autowire="byName">
+
+		<property name="name" value="tom" />
+		<!-- <property name="animal" ref="dog" /> -->
+		<!-- <constructor-arg name="name" value="tom" /> -->
+		<!-- <constructor-arg name="animal" ref="dog"></constructor-arg> where 
+			it is manual wiring -->
+	</bean>
+</beans> 
