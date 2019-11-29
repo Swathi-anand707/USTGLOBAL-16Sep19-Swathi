@@ -1,0 +1,4 @@
+1 Date getDay(), getMonth() which will give output in the form of number but display day and month
+2 all math function
+3 print the random number between 1 to 100
+4___________________________________________________________________________________________________________________________

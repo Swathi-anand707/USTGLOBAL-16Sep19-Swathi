@@ -1,0 +1,24 @@
+F12
+control+shift+I
+Right click+inspect
+
+Consoles Roles:
+
+1 see logged msg
+2  run java script code
+3 see error msg
+
+settimeout act as web API. 
+event loop checks continueosly wheather stack is empty or not
+Js is synchronous
+web Api are asynchronous
+In JS we can pass function as a parameter
+ex: first(second)
+call back function: passsing a function as a parameter  to other function
+callback=function(){}
+ex:setTimeout-- first parmeter is function second callback
+
+
+for map functions its mandatory to add return statements.(values)
+for filter function its mandatory to add return statement (boolean true or false)
+

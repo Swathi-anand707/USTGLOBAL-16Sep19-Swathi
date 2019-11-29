@@ -1,0 +1,102 @@
+let str = 'Hello World';
+str = str.toUpperCase();
+console.log(str);
+
+str1 = str.toLowerCase();
+console.log(str1);
+
+str2 = str.charAt(1)
+console.log(str2)
+
+str3 = str.indexOf('o', 4)
+console.log(str3)
+
+str4 = str.concat('Hello hii world');
+console.log(str4);
+
+
+str5 = str.includes('ld',4)
+console.log(str5);
+
+str6 = str.replace('llo', 'looo')
+console.log(str6);
+
+str7 = str.search('el')
+console.log(str7);
+
+str8 = str.trim("1")
+console.log(str8);
+
+str9 = str.substring('o',3)
+console.log(str9);
+
+str10 = str.split('o')
+console.log(str10);
+
+str11 = str.split('o',3)
+console.log(str11);
+
+console.log("============================")
+console.log("============================")
+
+let out = 'Communication Language';
+out = out.toUpperCase();
+console.log(out);
+
+out1 = out.toLowerCase();
+console.log(out);
+
+out2 = out.charAt(4)
+console.log(out2)
+
+out3 = out.indexOf('o', 4)
+console.log(out3)
+
+out4 = out.concat(' ' ,'is English');
+console.log(out4);
+
+
+out5 = out.includes('on',4)
+console.log(out5);
+
+out6 = out.replace('gauge', 'ooooo')
+console.log(out6);
+
+out7 = out.search('on')
+console.log(out7);
+
+out8 = out.trim("3")
+console.log(out8);
+
+out9 = out.substring('o',1)
+console.log(out9);
+
+out10 = out.split('o')
+console.log(out10);
+
+
+
+out11 = out.split('o',1)
+console.log(out11);
+
+console.log("============================")
+console.log("============================")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
