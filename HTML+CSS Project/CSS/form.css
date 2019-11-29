@@ -1,0 +1,54 @@
+form{
+    border : 1px solid black;
+    width: 375px;
+    height: 350px;
+    margin-top: 150px;
+    margin-left: 500px;
+    text-align: center;
+    font-size: 25px;
+    font-family: monospace;
+    border-radius: 25px;
+    background-image: url(/CSS/image/ba-awesome-colorful-fireworks-animated-gif-image-s.gif);
+    background-size: cover;
+    color: white;
+
+}
+body{
+    background-image:url(/CSS/image/Ys-DBJeX0nE.jpg);
+    background-size: cover;
+    
+
+}
+
+input[type="text"], input[type="password"] {
+    width: 225px;
+    height:25px;
+    border: 1px solid green;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 15px;
+
+
+
+}
+input[type="text"]:focus, input[type="password"]:focus{
+    outline: none;
+    
+}
+input[type="submit"]{
+    
+    margin-top: 20px; 
+    padding: 15px, 20px;
+    border-radius: 50px;
+    background-color:rgb(255, 0, 140);
+    outline: none;
+    color: white;
+    border: 1px solid red;
+
+}
+
+input[type="submit"]:hover{
+    background-color: rgb(174, 0, 255);
+    border: 2px solid greenyellow;
+}
+
