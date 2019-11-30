@@ -1,0 +1,1591 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.27-log MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| emp                |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.13 sec)
+
+mysql> use empdb;
+ERROR 1049 (42000): Unknown database 'empdb'
+mysql> use emp;
+Database changed
+mysql> show tables;
+Empty set (0.03 sec)
+
+   DDL(Data Definition Language)
+1.Create
+mysql> create table product(pid int,pname varchar(120),quantity int);
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_emp |
++---------------+
+| product       |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> desc product;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pid      | int(11)      | YES  |     | NULL    |       |
+| pname    | varchar(120) | YES  |     | NULL    |       |
+| quantity | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.05 sec)
+
+2.Drop
+mysql> drop table product;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> desc product;
+ERROR 1146 (42S02): Table 'emp.product' doesn't exist
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> drop database emp;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database ust_db;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| ust_db             |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table product(pid int,pname varchar(120),quantity int);
+ERROR 1046 (3D000): No database selected
+mysql> use ust_db;
+Database changed
+mysql> create table product(pid int,pname varchar(120),quantity int);
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_ust_db |
++------------------+
+| product          |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> desc product;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pid      | int(11)      | YES  |     | NULL    |       |
+| pname    | varchar(120) | YES  |     | NULL    |       |
+| quantity | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+3.Alter
+mysql> alter table product add column price int;
+Query OK, 0 rows affected (0.72 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc product;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pid      | int(11)      | YES  |     | NULL    |       |
+| pname    | varchar(120) | YES  |     | NULL    |       |
+| quantity | int(11)      | YES  |     | NULL    |       |
+| price    | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> alter table product change column price cost int;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc product;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pid      | int(11)      | YES  |     | NULL    |       |
+| pname    | varchar(120) | YES  |     | NULL    |       |
+| quantity | int(11)      | YES  |     | NULL    |       |
+| cost     | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table product drop column cost;
+Query OK, 0 rows affected (0.95 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc product;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pid      | int(11)      | YES  |     | NULL    |       |
+| pname    | varchar(120) | YES  |     | NULL    |       |
+| quantity | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+4.Rename
+mysql> rename table product to product_info;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_ust_db |
++------------------+
+| product_info     |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> rename database ust_db to product_info;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database ust_db to product_info' at line 1
+
+5.Truncate
+
+select * from product_info;
++------+-------+----------+
+| pid  | pname | quantity |
++------+-------+----------+
+|  101 | bike  |       10 |
+|  102 | car   |       20 |
+|  103 | bus   |        5 |
++------+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> truncate table product_info;
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> select * from product_info;
+Empty set (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_ust_db |
++------------------+
+| emp              |
+| product_info     |
++------------------+
+2 rows in set (0.00 sec)
+
+ -------------------------------------------
+
+   DML(Data Manipulation Language)
+1.Insert
+syntax: insert into table_name(column_name1,column_nam2....column_namen)
+   values(value1,value2....valuen);
+  
+mysql> insert into product_info(pid,pname,quantity) values(101,'pencil',10);
+Query OK, 1 row affected (0.13 sec) 
+
+//To See data inside the table
+mysql> select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|  101 | pencil |       10 |
++------+--------+----------+
+1 row in set (0.00 sec)
+
+//Without using column_name
+mysql> insert into product_info values(102,'pen',20);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|  101 | pencil |       10 |
+|  102 | pen    |       20 |
++------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> insert into product_info(pid,pname) values(103,'gem');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|  101 | pencil |       10 |
+|  102 | pen    |       20 |
+|  103 | gem    |     NULL |
++------+--------+----------+
+3 rows in set (0.00 sec)
+    
+mysql> insert into product_info(pid,pname,quantity) values(104,'bike',10),(105,'car',20),(106,'bus',5);
+Query OK, 3 rows affected (0.11 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|  101 | pencil |       10 |
+|  102 | pen    |       20 |
+|  103 | gem    |     NULL |
+|  104 | bike   |       10 |
+|  105 | car    |       20 |
+|  106 | bus    |        5 |
++------+--------+----------+
+6 rows in set (0.00 sec)
+
+2.Update
+syntax: update table_name set column_name=value;
+
+mysql> update product_info set quantity=100;
+Query OK, 6 rows affected (0.09 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|  101 | pencil |      100 |
+|  102 | pen    |      100 |
+|  103 | gem    |      100 |
+|  104 | bike   |      100 |
+|  105 | car    |      100 |
+|  106 | bus    |      100 |
++------+--------+----------+
+6 rows in set (0.00 sec)
+
+3.Delete
+syntax: delete from table_name;
+
+mysql> delete from product_info;
+Query OK, 6 rows affected (0.05 sec)
+
+mysql> select * from product_info;
+Empty set (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_ust_db |
++------------------+
+| product_info     |
++------------------+
+1 row in set (0.02 sec)
+
+-----------------------------------------
+
+      DQL(Data Query Language)
+1.Select
+To retrieve the data from database
+It gives result.
+with the help of select we can perform retrieval from the table in the different ways:
+1.Projection:Retrieve data from column
+synatx: select column_name from table_name;
+
+mysql> insert into product_info(pid,pname,quantity) values(101,'bike',10),(102,'car',20),(103,'bus',5);
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from product_info;
++------+-------+----------+
+| pid  | pname | quantity |
++------+-------+----------+
+|  101 | bike  |       10 |
+|  102 | car   |       20 |
+|  103 | bus   |        5 |
++------+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select pid from product_info;
++------+
+| pid  |
++------+
+|  101 |
+|  102 |
+|  103 |
++------+
+3 rows in set (0.02 sec)
+
+2.Selection: retrieving the data from rows as well as column
+ 
+3.Joins:
+
+--------------------------------------------
+
+Creating table using Constraints
+
+mysql> create table emp(eid int ,name varchar(200),mobile_no int,dob date,age int,date_of_joining date,blood_group varchar(10),deptno int,salary int,email varchar(30),gender varchar(10),primary key(eid));
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> desc emp;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| eid             | int(11)      | NO   | PRI | NULL    |       |
+| name            | varchar(200) | YES  |     | NULL    |       |
+| mobile_no       | int(11)      | YES  |     | NULL    |       |
+| dob             | date         | YES  |     | NULL    |       |
+| age             | int(11)      | YES  |     | NULL    |       |
+| date_of_joining | date         | YES  |     | NULL    |       |
+| blood_group     | varchar(10)  | YES  |     | NULL    |       |
+| deptno          | int(11)      | YES  |     | NULL    |       |
+| salary          | int(11)      | YES  |     | NULL    |       |
+| email           | varchar(30)  | YES  |     | NULL    |       |
+| gender          | varchar(10)  | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+11 rows in set (0.01 sec)
+
+ // To add column     
+
+mysql> alter table emp add column designation varchar(100);
+Query OK, 0 rows affected (0.44 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| eid             | int(11)      | NO   | PRI | NULL    |       |
+| name            | varchar(200) | YES  |     | NULL    |       |
+| mobile_no       | int(11)      | YES  |     | NULL    |       |
+| dob             | date         | YES  |     | NULL    |       |
+| age             | int(11)      | YES  |     | NULL    |       |
+| date_of_joining | date         | YES  |     | NULL    |       |
+| blood_group     | varchar(10)  | YES  |     | NULL    |       |
+| deptno          | int(11)      | YES  |     | NULL    |       |
+| salary          | int(11)      | YES  |     | NULL    |       |
+| email           | varchar(30)  | YES  |     | NULL    |       |
+| gender          | varchar(10)  | YES  |     | NULL    |       |
+| designation     | varchar(100) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+12 rows in set (0.00 sec)
+
+  mysql> alter table emp change column mobile_no mobileno bigint;
+Query OK, 0 rows affected (0.59 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp change column mobileno mobile_no bigint;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp values(1,'Deepesh',9039683447,'1997-05-05',22,'2019-09-16','o+',10,29000,'deepeshkhandelwal05@gmail.com','male','software developer');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp values(2,'Deepu',7999578352,'1997-05-05',22,'2019-09-16','o+',20,27000,'deepeshkhandelwal@gmail.com','male','tester'),
+(3,'Afreen',7896243582,'1997-01-22',22,'2019-09-16','o+',10,29000,'afreensahar@gmail.com','female','software developer'),
+(4,'Monika',8962166897,'1997-09-16',22,'2019-09-16','b+',30,27000,'monika@gmail.com','female','manager'),
+(5,'Radhika',9827760993,'1999-07-28',20,'2019-09-16','o+',40,27000,'radhika@gmail.com','female','HR'),
+(6,'Vishal',9039131611,'1997-05-14',22,'2019-11-16','o+',20,27600,'vishal@gmail.com','male','tester'),
+(7,'Safiya',8985796214,'1996-01-22',23,'2019-09-23','a+',50,27000,'safiya@gmail.com','female','tech support'),
+(8,'ABC',8536782477,'1997-10-05',22,'2019-09-16','o-',null,10000,'abc@gmail.com','male','clerk'),
+(9,'Rahul',7998796875,'1995-05-08',24,'2019-08-16','o+',20,17000,'rahul@gmail.com','male','tester'),
+(10,'Pallavi',7898576814,'1996-07-29',23,'2019-09-06','b+',10,20000,'ps@gmail.com','female','software developer');
+Query OK, 9 rows affected (0.06 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|   8 | ABC     | 8536782477 | 1997-10-05 |   22 | 2019-09-16      | o-          |   NULL |  10000 | abc@gmail.com                 | male   | clerk              |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+10 rows in set (0.00 sec)
+----------------------------------------
+
+            //Distinct
+mysql> select distinct designation from emp;
++--------------------+
+| designation        |
++--------------------+
+| software developer |
+| tester             |
+| manager            |
+| HR                 |
+| tech support       |
+| clerk              |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct designation,deptno from emp;
++--------------------+--------+
+| designation        | deptno |
++--------------------+--------+
+| software developer |     10 |
+| tester             |     20 |
+| manager            |     30 |
+| HR                 |     40 |
+| tech support       |     50 |
+| clerk              |   NULL |
++--------------------+--------+
+6 rows in set (0.00 sec)
+---------------------------------------
+
+          //Alias
+mysql> select designation as des from emp;
++--------------------+
+| des                |
++--------------------+
+| software developer |
+| tester             |
+| software developer |
+| manager            |
+| HR                 |
+| tester             |
+| tech support       |
+| clerk              |
+| tester             |
+| software developer |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> select designation dname from emp;
++--------------------+
+| dname              |
++--------------------+
+| software developer |
+| tester             |
+| software developer |
+| manager            |
+| HR                 |
+| tester             |
+| tech support       |
+| clerk              |
+| tester             |
+| software developer |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|   8 | ABC     | 8536782477 | 1997-10-05 |   22 | 2019-09-16      | o-          |   NULL |  10000 | abc@gmail.com                 | male   | clerk              |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+10 rows in set (0.00 sec)
+-----------------------------------------
+
+     WHERE Clause
+syntax: select * from table_name where condition;
+or update table set column_name=value where condition;
+
+mysql> update emp set mobile_no=8962547175 where eid=8;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|   8 | ABC     | 8962547175 | 1997-10-05 |   22 | 2019-09-16      | o-          |   NULL |  10000 | abc@gmail.com                 | male   | clerk              |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+10 rows in set (0.01 sec)
+
+mysql> delete from emp where eid=8;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from emp;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from emp where eid=1;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+1 row in set (0.00 sec)
+
+1.WAQTD the salary of employee that is incremented by 5000.
+ mysql> select salary+5000 salary_increment from emp;
++------------------+
+| salary_increment |
++------------------+
+|            34000 |
+|            32000 |
+|            34000 |
+|            32000 |
+|            32000 |
+|            32600 |
+|            32000 |
+|            22000 |
+|            25000 |
++------------------+
+9 rows in set (0.00 sec)
+
+
+
+2.WAQTD the salary of employee that is decremented by 5000.
+mysql> select salary-5000 salary_decrement from emp;
++------------------+
+| salary_decrement |
++------------------+
+|            24000 |
+|            22000 |
+|            24000 |
+|            22000 |
+|            22000 |
+|            22600 |
+|            22000 |
+|            12000 |
+|            15000 |
++------------------+
+9 rows in set (0.02 sec)
+
+
+3.WAQTD the annual salary.
+mysql> select salary*12 Annual_salary from emp;
++---------------+
+| Annual_salary |
++---------------+
+|        348000 |
+|        324000 |
+|        348000 |
+|        324000 |
+|        324000 |
+|        331200 |
+|        324000 |
+|        204000 |
+|        240000 |
++---------------+
+9 rows in set (0.01 sec)
+
+
+4.WAQTD the per day salary.
+mysql> select salary/30 Per_day_salary from emp;
++----------------+
+| Per_day_salary |
++----------------+
+|       966.6667 |
+|       900.0000 |
+|       966.6667 |
+|       900.0000 |
+|       900.0000 |
+|       920.0000 |
+|       900.0000 |
+|       566.6667 |
+|       666.6667 |
++----------------+
+9 rows in set (0.00 sec)
+
+5.WAQTD ename whose designation is software developer.
+mysql> select * from emp where designation='software developer';
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+3 rows in set (0.00 sec)
+
+6.WAQTD all the record of the emp excluding who is working in deptno 20.
+mysql> select * from emp where deptno!=20;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+6 rows in set (0.00 sec)
+
+7.WAQTD record of emp whose salary greather than 28000.
+mysql> select * from emp where salary>28000;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+2 rows in set (0.00 sec)
+
+8.WAQTD result of emp whose age is less than 23.
+mysql> select * from emp where age<23;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+6 rows in set (0.00 sec)
+
+9.WAQTD name,salary,email,mobileno whose age is greather than equal to 22.
+mysql> select name,salary,mobile_no,email from emp where age>=22;
++---------+--------+------------+-------------------------------+
+| name    | salary | mobile_no  | email                         |
++---------+--------+------------+-------------------------------+
+| Deepesh |  29000 | 9039683447 | deepeshkhandelwal05@gmail.com |
+| Deepu   |  27000 | 7999578352 | deepeshkhandelwal@gmail.com   |
+| Afreen  |  29000 | 7896243582 | afreensahar@gmail.com         |
+| Monika  |  27000 | 8962166897 | monika@gmail.com              |
+| Vishal  |  27600 | 9039131611 | vishal@gmail.com              |
+| Safiya  |  27000 | 8985796214 | safiya@gmail.com              |
+| Rahul   |  17000 | 7998796875 | rahul@gmail.com               |
+| Pallavi |  20000 | 7898576814 | ps@gmail.com                  |
++---------+--------+------------+-------------------------------+
+8 rows in set (0.00 sec)
+
+
+10.WAQTD salary whose salary is getting less than or equal to 28000.
+mysql> select salary from emp where salary<=28000;
++--------+
+| salary |
++--------+
+|  27000 |
+|  27000 |
+|  27000 |
+|  27600 |
+|  27000 |
+|  17000 |
+|  20000 |
++--------+
+7 rows in set (0.00 sec)
+
+//   AND Operator
+11.WAQTD all the emp details who is working in deptno 20 as well as salary is greater than 25000.
+mysql> select * from emp where deptno=20 and salary>25000;
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------------+--------+-------------+
+| eid | name   | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                       | gender | designation |
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------------+--------+-------------+
+|   2 | Deepu  | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com | male   | tester      |
+|   6 | Vishal | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com            | male   | tester      |
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------------+--------+-------------+
+2 rows in set (0.00 sec)
+
+12.WAQTD name, salary of emp who is working in deptno 10 and 20.
+mysql> select name,salary from emp where deptno=10 and deptno=20;
+Empty set (0.00 sec)
+
+13.WAQTD emp details whose job designation is tester and age is equal to 24.
+mysql> select * from emp where designation='tester' and age=24;
++-----+-------+------------+------------+------+-----------------+-------------+--------+--------+-----------------+--------+-------------+
+| eid | name  | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email           | gender | designation |
++-----+-------+------------+------------+------+-----------------+-------------+--------+--------+-----------------+--------+-------------+
+|   9 | Rahul | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com | male   | tester      |
++-----+-------+------------+------------+------+-----------------+-------------+--------+--------+-----------------+--------+-------------+
+1 row in set (0.00 sec)
+
+//OR Operator
+14.WAQTD all the records of emp who is working as a tester or having salary more than 27000.
+mysql> select * from emp where designation='tester' or salary>27000;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+5 rows in set (0.00 sec)
+
+15.WAQTD name,salary,age from the emp table who is working in deptno 10 or 40 or 50. 
+mysql> select name,salary,age from emp where deptno=10 or deptno=40 or deptno=50;
++---------+--------+------+
+| name    | salary | age  |
++---------+--------+------+
+| Deepesh |  29000 |   22 |
+| Afreen  |  29000 |   22 |
+| Radhika |  27000 |   20 |
+| Safiya  |  27000 |   23 |
+| Pallavi |  20000 |   23 |
++---------+--------+------+
+5 rows in set (0.00 sec)
+
+16.WAQTD name,salary,age from the emp table who is working in deptno 10 or 40 or 70. 
+mysql> select name,salary,age from emp where deptno=10 or deptno=40 or deptno=70;
++---------+--------+------+
+| name    | salary | age  |
++---------+--------+------+
+| Deepesh |  29000 |   22 |
+| Afreen  |  29000 |   22 |
+| Radhika |  27000 |   20 |
+| Pallavi |  20000 |   23 |
++---------+--------+------+
+4 rows in set (0.00 sec)
+
+17.WAQTD emp details whose age is more than 23 and blood group is b+.
+mysql> select * from emp where age>23 and blood_group='b+';
+Empty set (0.00 sec)
+
+18.WAQTD all the records of emp excluding tester.
+mysql> select * from emp where not designation ='tester';
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp where designation !='tester';
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+6 rows in set (0.00 sec)
+
+19.WAQTD name of all the emps who is working as HR or tester and salary is greater than 27000.
+mysql> select name from emp where designation = 'HR' or designation = 'tester' and salary>27000;
++---------+
+| name    |
++---------+
+| Radhika |
+| Vishal  |
++---------+
+2 rows in set (0.00 sec)
+
+20.WAQTD all the emp excluding software developer who are working in deptno 10.
+mysql> select * from emp where not (designation='software developer' and deptno=10);
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------------+--------+--------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                       | gender | designation  |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------------+--------+--------------+
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com | male   | tester       |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com            | female | manager      |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com           | female | HR           |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com            | male   | tester       |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com            | female | tech support |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com             | male   | tester       |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------------+--------+--------------+
+6 rows in set (0.00 sec)
+
+21.WAQTD all the software developer who are working in deptno 10 or 40.
+mysql> select name from emp where deptno=10 or deptno=40 and designation='software developer';
++---------+
+| name    |
++---------+
+| Deepesh |
+| Afreen  |
+| Pallavi |
++---------+
+3 rows in set (0.00 sec)
+
+----------------------------------------------------------------------
+//Special Operator
+1.IN:-It is used for evaluating multiple values.
+syntax: select * from table_name where column_name IN(list of values);
+
+1.WAQTD all the details of emp who is working in deptno 10,40,50,60,70,80.
+mysql> select * from emp where deptno IN(10,40,50,60,70,80);
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+5 rows in set (0.00 sec)
+
+2.WAQTD name of all the emps who is working as tester,hr,manager.
+ mysql> select name from emp where designation in('tester','HR','manager');
++---------+
+| name    |
++---------+
+| Deepu   |
+| Monika  |
+| Radhika |
+| Vishal  |
+| Rahul   |
++---------+
+5 rows in set (0.00 sec)
+
+3.WAQTD details of tester,manager,software developer who are working in deptno 20 or 30 and salary is greater than 27000.
+ mysql> select * from emp where designation in('tester','manager','software developer') and salary>27000 and deptno in(20,30);
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+------------------+--------+-------------+
+| eid | name   | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email            | gender | designation |
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+------------------+--------+-------------+
+|   6 | Vishal | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com | male   | tester      |
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+------------------+--------+-------------+
+1 row in set (0.00 sec)
+
+2.NOT IN:-
+syntax:- select * from table_name where column_name not in(value1,value2,...valuen);
+
+1.WAQTD all the records of emp excluding who is working as tester, manager, hr.
+mysql> select * from emp where designation not in('tester','manager','HR');
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+4 rows in set (0.02 sec)
+
+2.WAQTD all the records of emp whose age is 20,24,25,30 exclude all the details of tester and software developer.
+mysql> select * from emp where designation not in('tester','software developer') and age in(20,24,25,30);
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------+--------+-------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email             | gender | designation |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------+--------+-------------+
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com | female | HR          |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------+--------+-------------+
+1 row in set (0.00 sec)
+
+----------------------------------------------
+3.BETWEEN: It is used for searching based on range of values.
+syntax: select * from table_name where column_name Between values1 AND values2;
+
+1.WAQTD all the details of emp whose age is between 20 to 40.
+mysql> select * from emp where age between 20 and 40;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   |  799578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | male   | tech support       |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+9 rows in set (0.00 sec)
+
+2.WAQTD all the details of emp who are hired during 2019.
+mysql> select * from emp where date_of_joining between '2019-01-01' and '2019-12-31';
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+9 rows in set (0.03 sec)
+
+----------------------------------------------------------------------------
+
+4.NOT BETWEEN:
+syntax: select * from table_name where column_name Between values1 AND values2;
+
+1.WAQTD all the records of emp excluding whose salary in the range of 25000 to 30000.
+mysql> select * from emp where salary not between 25000 and 30000;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-----------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email           | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-----------------+--------+--------------------+
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com    | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-----------------+--------+--------------------+
+2 rows in set (0.00 sec)
+
+----------------------------------------------------------------------
+
+5.IS: Used to check null value.
+ syntax:-select * from table_name where column_name IS null;
+
+6.IS Not:
+syntax:-select * from table_name where column_name IS Not null;
+
+----------------------------------------------------------------------------------------
+
+7.LIKE: Used for pattern matching.
+-> %(percentage)-matches 0 or 'n' characters
+-> _(underscore)-matches exactly one character
+syntax: select * from table_name where column_name Like '%/_';
+
+1.WAQTD all the details of emp whose name start with A.
+mysql> select * from emp where name like 'A%';
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------+--------+--------------------+
+| eid | name   | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                 | gender | designation        |
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------+--------+--------------------+
+|   3 | Afreen | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com | female | software developer |
++-----+--------+------------+------------+------+-----------------+-------------+--------+--------+-----------------------+--------+--------------------+
+1 row in set (0.06 sec)
+
+2.WAQTD name of all emp whose second character is I.
+mysql> select name from emp where name like '_I%';
++--------+
+| name   |
++--------+
+| Vishal |
++--------+
+1 row in set (0.00 sec)
+
+3.WAQTD name of the emp which has atleat two L in their name.
+mysql> select name from emp where name like '%L%L%';
++---------+
+| name    |
++---------+
+| Pallavi |
++---------+
+1 row in set (0.00 sec)
+
+4.WAQTD the name of the emp whose name start with S and end with P.
+mysql> select name from emp where name like 'S%P';
+Empty set (0.00 sec)
+
+5.WAQTD all the record of the emp if the emp name begins with A or S.
+mysql> select name from emp where name like 'A%'or name like 'S%';
++--------+
+| name   |
++--------+
+| Afreen |
+| Safiya |
++--------+
+2 rows in set (0.00 sec)
+
+6.WAQTD emp name salary who is working in deptno 10,20,30 and job designation start with S.
+mysql> select name,salary from emp where designation like 'S%'and deptno in(10,20,30);
++---------+--------+
+| name    | salary |
++---------+--------+
+| Deepesh |  29000 |
+| Afreen  |  29000 |
+| Pallavi |  20000 |
++---------+--------+
+3 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------
+
+                                //FUNCTION
+->It is a block of code which perform some specific task.
+->Two types:
+   1.Single Row Function(Scalar Function): For every input we are getting output.
+   2.Multi Row Function(Aggregate Function): For every input we are getting only a single output.
+Types of Multi Row Function:
+1.AVG() :
+  mysql> select avg(salary) from emp;
++-------------+
+| avg(salary) |
++-------------+
+|  25622.2222 |
++-------------+
+1 row in set (0.00 sec)
+
+2.MAX() :
+mysql> select max(salary) from emp;
++-------------+
+| max(salary) |
++-------------+
+|       29000 |
++-------------+
+1 row in set (0.00 sec)
+
+3.MIN() :
+mysql> select min(salary) from emp;
++-------------+
+| min(salary) |
++-------------+
+|       17000 |
++-------------+
+1 row in set (0.00 sec)
+
+4.SUM() :
+  mysql> select sum(salary) from emp;
++-------------+
+| sum(salary) |
++-------------+
+|      230600 |
++-------------+
+1 row in set (0.00 sec)
+
+5.COUNT() :
+mysql> select count(*) from emp;
++----------+
+| count(*) |
++----------+
+|        9 |
++----------+
+1 row in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------
+
+                 //Order By
+->It is used to sort the result-set in ascending or descending order.
+->By default sorts in ascending order.
+->To sort in decending order use the DESC keyword.
+
+syntax:
+select column1,column2...from table_name order by column1 ASC|DESC;
+
+Order of execution:
+1.from
+2.where
+3.select
+4.order by
+
+1.WAQTD all the result of emp and salary should be arrange in decending order.
+mysql> select * from emp order by salary desc;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | male   | tech support       |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+9 rows in set (0.03 sec)
+
+-----------------------------------------------------------------------------------
+
+                      //SubQuery
+->A query inside another query.
+->We can access data from different tables.  
+->In subquery first inner query will execute and than output of that inner query will give to outer query as input and then outer query will execute
+and generate the required resultant set.
+syntax:
+select * from table_name where column_name operator(select * from table_name);
+      ^                                                     ^
+      |                                                     |
+     Outer Query                                          Inner Query
+->Two types of SubQuery:
+1.Single Row SubQuery: In these we are using Relational Operator because we are getting single output from inner query.
+syntax: select * from table_name where column_name relational operator(select * from table_name);
+
+2.Multi Row SubQuery: Gives more than one resultset so we use Special Operator here.
+syntax: select * from table_name where column_name special operator(select * from table_name);
+-----------------------15/10/2019-----------------------
+
+  //Creating Department Table
+
+mysql> create table dept(deptno int,dname varchar(120),location varchar(120),primary key(deptno));
+Query OK, 0 rows affected (1.26 sec)
+
+mysql> desc dept;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| deptno   | int(11)      | NO   | PRI | NULL    |       |
+| dname    | varchar(120) | YES  |     | NULL    |       |
+| location | varchar(120) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.15 sec)
+
+mysql> insert into dept values(10,'development','Bangalore'),(20,'admin','Hyderabad'),(30,'maintainance','Mumbai'),(40,'operation','Pune');
+Query OK, 4 rows affected (0.09 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++--------+--------------+-----------+
+| deptno | dname        | location  |
++--------+--------------+-----------+
+|     10 | development  | Bangalore |
+|     20 | admin        | Hyderabad |
+|     30 | maintainance | Mumbai    |
+|     40 | operation    | Pune      |
++--------+--------------+-----------+
+4 rows in set (0.00 sec)
+
+       //Single Row Subquery
+1.WAQTD all the record of the emp whose date of joining is same as Deepesh.
+mysql> select * from emp where date_of_joining = (select date_of_joining from emp where name='Deepesh');
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+5 rows in set (0.00 sec)
+
+2.WAQTD second maximum salary.
+mysql> select max(salary) from emp where salary<(select max(salary) from emp);
++-------------+
+| max(salary) |
++-------------+
+|       27600 |
++-------------+
+1 row in set (0.00 sec)
+
+------------------------------------
+
+ALL Operator: It is a multivalued operator if input satisfies each and every condition then we will get output.
+
+Any Operator: It is a multivalued operator if input satisfies any of the given condition then we will get output.
+
+---------------------------------------------------
+
+    //Multi-Row Subquery
+1.WAQTD name of emp who is working in a location which has atleast one A in the location.
+mysql> select name from emp where deptno in (select deptno from dept where location like '%A%');
++---------+
+| name    |
++---------+
+| Deepesh |
+| Deepu   |
+| Afreen  |
+| Monika  |
+| Vishal  |
+| Rahul   |
+| Pallavi |
++---------+
+7 rows in set (0.00 sec)
+
+2.WAQTD all the record of the emp who is working in admin, operation and development.
+mysql> select * from emp where deptno in(select deptno from dept where dname in('admin','operation','development'));
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+7 rows in set (0.00 sec)
+
+----------------------------------------------
+
+    //Group By
+->It will execute row by row.
+->After from clause and where clause, Group by clause will execute.
+->After group by clause all the clause execute group by group.
+
+syntax: select * from table_name where condition group by column_name;
+
+1.WAQTD the max salary from each deptarment.
+mysql> select  max(salary) from emp group by deptno;
++-------------+
+| max(salary) |
++-------------+
+|       29000 |
+|       27600 |
+|       27000 |
+|       27000 |
+|       27000 |
++-------------+
+5 rows in set (0.03 sec)
+
+2.WAQTD the highest salary given to HR in each department.
+mysql> select max(salary) from emp where designation='HR' group by deptno;
++-------------+
+| max(salary) |
++-------------+
+|       27000 |
++-------------+
+1 row in set (0.00 sec)
+
+----------------------------------------------------------
+
+         //Having Clause
+->Always Execute After Group bu clause.
+->If we have to perform filteration on group by we will go for Having clause.
+->It will execute group by group.
+->Only one condition we can write.
+
+syntax: select * from table_name where condition group by column_name having grouping condition;
+
+1.WAQTD deptno which has atleast two employees working.
+mysql> select deptno from emp group by deptno having count(*)>=2;
++--------+
+| deptno |
++--------+
+|     10 |
+|     20 |
++--------+
+2 rows in set (0.03 sec)
+
+---------------------------------------------
+
+          //Transaction Control Language
+
+1.Rollback:
+mysql> show tables;
++------------------+
+| Tables_in_ust_db |
++------------------+
+| dept             |
+| emp              |
+| product_info     |
++------------------+
+3 rows in set (0.02 sec)
+
+mysql> desc product_info;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pid      | int(11)      | YES  |     | NULL    |       |
+| pname    | varchar(120) | YES  |     | NULL    |       |
+| quantity | int(11)      | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.06 sec)
+
+mysql> Select * from product_info;
+Empty set (0.05 sec)
+
+mysql> insert into product_info values(1,'Gel',5);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into product_info values(2,'pen',10);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into product_info values(3,'pencil',20);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |        5 |
+|    2 | pen    |       10 |
+|    3 | pencil |       20 |
++------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |        5 |
+|    2 | pen    |       10 |
+|    3 | pencil |       20 |
++------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into product_info values(4,'watch',2);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |        5 |
+|    2 | pen    |       10 |
+|    3 | pencil |       20 |
+|    4 | watch  |        2 |
++------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |        5 |
+|    2 | pen    |       10 |
+|    3 | pencil |       20 |
++------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> update product_info set quantity=50;
+Query OK, 3 rows affected (0.03 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |       50 |
+|    2 | pen    |       50 |
+|    3 | pencil |       50 |
++------+--------+----------+
+3 rows in set (0.00 sec)
+
+2.Commit:
+mysql> commit;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |       50 |
+|    2 | pen    |       50 |
+|    3 | pencil |       50 |
++------+--------+----------+
+3 rows in set (0.02 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |       50 |
+|    2 | pen    |       50 |
+|    3 | pencil |       50 |
++------+--------+----------+
+3 rows in set (0.00 sec)
+
+3.Savepoint: 
+->From these we can rollback.
+->Always work with rollback.
+->Every Savepoint we have to provide certain name.
+
+mysql> savepoint a;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into product_info values(4,'watch',2);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> savepoint b;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update product_info set pname='shoes' where pid=1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | shoes  |       50 |
+|    2 | pen    |       50 |
+|    3 | pencil |       50 |
+|    4 | watch  |        2 |
++------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> rollback to a;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> Select * from product_info;
++------+--------+----------+
+| pid  | pname  | quantity |
++------+--------+----------+
+|    1 | Gel    |       50 |
+|    2 | pen    |       50 |
+|    3 | pencil |       50 |
++------+--------+----------+
+3 rows in set (0.00 sec)
+
+----------------------------------------------
+
+           //Joins
+->Used to established the connection between two tables.
+Types of Join:
+1.Cross Join: Records of first table merged with all the records of second table.
+syntax:
+ANSI(American National Standard Institute)
+select * from table_name1 cross join table_name2;
+
+mysql> select * from dept cross join emp;
++--------+--------------+-----------+-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+| deptno | dname        | location  | eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        |
++--------+--------------+-----------+-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+|     10 | development  | Bangalore |   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|     20 | admin        | Hyderabad |   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|     30 | maintainance | Mumbai    |   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|     40 | operation    | Pune      |   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |
+|     10 | development  | Bangalore |   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|     20 | admin        | Hyderabad |   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|     30 | maintainance | Mumbai    |   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|     40 | operation    | Pune      |   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |
+|     10 | development  | Bangalore |   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|     20 | admin        | Hyderabad |   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|     30 | maintainance | Mumbai    |   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|     40 | operation    | Pune      |   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |
+|     10 | development  | Bangalore |   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|     20 | admin        | Hyderabad |   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|     30 | maintainance | Mumbai    |   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|     40 | operation    | Pune      |   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |
+|     10 | development  | Bangalore |   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|     20 | admin        | Hyderabad |   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|     30 | maintainance | Mumbai    |   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|     40 | operation    | Pune      |   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |
+|     10 | development  | Bangalore |   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|     20 | admin        | Hyderabad |   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|     30 | maintainance | Mumbai    |   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|     40 | operation    | Pune      |   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |
+|     10 | development  | Bangalore |   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|     20 | admin        | Hyderabad |   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|     30 | maintainance | Mumbai    |   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|     40 | operation    | Pune      |   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |
+|     10 | development  | Bangalore |   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|     20 | admin        | Hyderabad |   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|     30 | maintainance | Mumbai    |   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|     40 | operation    | Pune      |   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |
+|     10 | development  | Bangalore |  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
+|     20 | admin        | Hyderabad |  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
+|     30 | maintainance | Mumbai    |  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
+|     40 | operation    | Pune      |  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |
++--------+--------------+-----------+-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+
+36 rows in set (0.01 sec)
+
+Note:
+Oracle syntax:
+select * from table_name1,table_name2;
+---------------------------------------
+2.Inner Join:It is used to obtain only matching records from the tables.
+ANSI syntax:
+select * from table_name1 Inner Join table_name2 on condition;
+mysql> select * from emp e inner join dept d on e.deptno=d.deptno;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+--------+--------------+-----------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        | deptno | dname        | location  |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+--------+--------------+-----------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |     10 | development  | Bangalore |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |     20 | admin        | Hyderabad |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |     10 | development  | Bangalore |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |     30 | maintainance | Mumbai    |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |     40 | operation    | Pune      |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |     20 | admin        | Hyderabad |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |     50 | hr           | Indore    |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |     20 | admin        | Hyderabad |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |     10 | development  | Bangalore |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+--------+--------------+-----------+
+9 rows in set (0.00 sec)
+
+Oracle syntax:
+select * from table_name1,table_name2 where <join-condition>;
+-----------------------------------------------------
+3.Outer Join:
+Three Types:
+a.Left Outer Join: 
+->Join return all the rows of the table on the left side of the join and matching rows of the table on the right side of join.
+->It is the combination of Inner join and unmatched records present in the left table.
+->The rows for which there is no matching rows on the right-side the result-set will contain null.
+synatx: ANSI
+select * from table_name left outer join table_name2 on condition;
+synatx: Oracle
+select * from table_name1,table_name2 where table_name1.column_name=table_name2.column_name(+);
+
+mysql> select * from emp e left outer join dept d on e.deptno=d.deptno;
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+--------+--------------+-----------+
+| eid | name    | mobile_no  | dob        | age  | date_of_joining | blood_group | deptno | salary | email                         | gender | designation        | deptno | dname        | location  |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+--------+--------------+-----------+
+|   1 | Deepesh | 9039683447 | 1997-05-05 |   22 | 2019-09-16      | o+          |     10 |  29000 | deepeshkhandelwal05@gmail.com | male   | software developer |     10 | development  | Bangalore |
+|   2 | Deepu   | 7999578352 | 1997-05-05 |   22 | 2019-09-16      | o+          |     20 |  27000 | deepeshkhandelwal@gmail.com   | male   | tester             |     20 | admin        | Hyderabad |
+|   3 | Afreen  | 7896243582 | 1997-01-22 |   22 | 2019-09-16      | o+          |     10 |  29000 | afreensahar@gmail.com         | female | software developer |     10 | development  | Bangalore |
+|   4 | Monika  | 8962166897 | 1997-09-16 |   22 | 2019-09-16      | b+          |     30 |  27000 | monika@gmail.com              | female | manager            |     30 | maintainance | Mumbai    |
+|   5 | Radhika | 9827760993 | 1999-07-28 |   20 | 2019-09-16      | o+          |     40 |  27000 | radhika@gmail.com             | female | HR                 |     40 | operation    | Pune      |
+|   6 | Vishal  | 9039131611 | 1997-05-14 |   22 | 2019-11-16      | o+          |     20 |  27600 | vishal@gmail.com              | male   | tester             |     20 | admin        | Hyderabad |
+|   7 | Safiya  | 8985796214 | 1996-01-22 |   23 | 2019-09-23      | a+          |     50 |  27000 | safiya@gmail.com              | female | tech support       |     50 | hr           | Indore    |
+|   9 | Rahul   | 7998796875 | 1995-05-08 |   24 | 2019-08-16      | o+          |     20 |  17000 | rahul@gmail.com               | male   | tester             |     20 | admin        | Hyderabad |
+|  10 | Pallavi | 7898576814 | 1996-07-29 |   23 | 2019-09-06      | b+          |     10 |  20000 | ps@gmail.com                  | female | software developer |     10 | development  | Bangalore |
++-----+---------+------------+------------+------+-----------------+-------------+--------+--------+-------------------------------+--------+--------------------+--------+--------------+-----------+
+9 rows in set (0.00 sec)
+
+
+b.Right Outer Join:
+->Join return all the rows of the table on the right side of the join and matching rows of the table on the left side of join.
+->It is the combination of Inner join and unmatched records present in the right table.
+->The rows for which there is no matching rows on the left-side the result-set will contain null.
+synatx: ANSI
+select * from table_name right outer join table_name2 on condition;
+synatx: Oracle
+select * from table_name1,table_name2 where table_name1.column_name(+)=table_name2.column_name;
+
+c.Full Outer Join:
+->It obtains the unmatched records from both the tables.
+synatx: ANSI
+select * from table_name1 Full Outer Join table_name2 on condition;
+
+
+------------------------------------------------------------------------------
+4.Natural Join:
+->It is similar to inner join where we don't specify the condition.
+->It provides inner join if there are common column present else it will give cartisian join.
+synatx: ANSI
+select * from table1 natural join table2;
+--------------------------------------------------------------------------
+5.Self join:
+->Joining of two same table.
+->We use these join whenever data to be selected within the same table but it should present in two different table.
+->Here we use Alias name.
+synatx: ANSI
+select * from table_name1 t1 join table_name2 t2 on condition;
+synatx: Oracle
+select * from table_name1 t1,table_name2 t2 on condition;                                                                                               
