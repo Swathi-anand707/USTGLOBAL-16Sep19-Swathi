@@ -1,0 +1,10 @@
+<div class="col-md-4 mt-2 float-left card card-body">
+    <div class="card card-body" *ngFor ="let dog of Dogs">
+       <img src="{{dog.imgUrl}}" alt="" (click) ="sendDog(dog)">
+        <h1>
+           {{dog.Name}}
+        </h1>
+
+    </div>
+</div>
+<app-child [dog] = "selectedDog" ></app-child> 

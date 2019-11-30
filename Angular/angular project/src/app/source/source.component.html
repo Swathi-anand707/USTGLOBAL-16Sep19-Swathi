@@ -1,0 +1,12 @@
+<div class="col-md-4 offset-4 mt-3 ">
+    <select class="form-control "  name = "worldnews" id = "wnews" (change) = "source($event)">
+        <option value = "ng">National Geographic</option>
+        <option value = "gni">Google News</option>
+        <option value = "toi">Times Of India</option>
+        <option value = "es">ESPN</option>
+        <option value = "cn">CNN</option>
+        <option value = "abc">ABC News</option>
+    </select> 
+</div>
+
+<app-childsource [sourcenews] = "sourceNews"></app-childsource>

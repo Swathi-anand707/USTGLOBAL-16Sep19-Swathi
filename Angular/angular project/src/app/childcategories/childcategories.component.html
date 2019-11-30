@@ -1,0 +1,7 @@
+
+<div class="col-md-3 float-left card card-body mt-3" style="height: 350px" *ngFor = "let ca of CategoryNews">
+    <a href="{{ca.url}}">
+        <img class = "img-thumbnail" src="{{ca.urlToImage}}" alt="" srcset="">
+    </a>
+    <h5 >{{ca.title}}</h5>
+</div>

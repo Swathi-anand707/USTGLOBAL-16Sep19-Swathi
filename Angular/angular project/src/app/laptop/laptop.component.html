@@ -1,0 +1,11 @@
+<div class = "col-md-4 mt-2 float-left card card-body">
+    <div class="div card card-body" *ngFor= "let Laptop of Laptops">
+        <img src="{{Laptop.imgUrl}}" alt="" (click)="sendLaptop(Laptop)">
+        <h3>
+            {{Laptop.Name}}
+           
+        </h3>
+
+    </div>
+</div>
+<app-laptopchild [Laptop]="selectedLaptop"></app-laptopchild>

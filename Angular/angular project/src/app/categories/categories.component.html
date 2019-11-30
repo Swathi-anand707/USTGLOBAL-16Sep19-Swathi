@@ -1,0 +1,11 @@
+<div class="col-md-4 offset-4 mt-3 ">
+    <select class="form-control "  name = "worldnews" id = "wnews" (change) = "CategoryNews($event)">
+        <option value = "gen">General</option>
+        <option value = "sp">Sports</option>
+        <option value = "en">Entertainment</option>
+        <option value = "he">Health</option>
+        <option value = "bu">Bussiness</option>
+        <option value = "sci">Science</option>
+    </select> 
+</div>
+<app-childcategories [CategoryNews] = "catNews"></app-childcategories>

@@ -1,0 +1,63 @@
+<form action="" class="col-md-4 offset-3 mt-5 card card-body"  #form="ngForm" (ngSubmit)="scheduleInt(form)">
+    <h1 class="text-center bg-dark text-white"> Schedule Interview</h1>
+    
+    <div class="form-group">
+        <input type="text" name="cname" id="cname" class="form-control" placeholder="Candidate Name" #text="ngModel" ngModel required>
+        <div *ngIf="text.touched && text.invalid ">
+                <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+        </div>
+    
+    </div>
+    <div class="form-group">
+        <input type="number" name="exp" id="exp" class="form-control" placeholder="year of experience" #number="ngModel" ngModel required>
+        <div *ngIf="number.touched && number.invalid ">
+            <p class="alert alert-danger" *ngIf="number.errors.required"> This field is required</p>
+        </div>
+    
+    </div>
+    
+    <div class="form-group">
+            <div class="form-group">
+                    <label for="skills"> </label><br>
+                    <input type="radio" name="skills" id="java">java
+                    <input type="radio" name="skills" id="Angular">Angular
+                    <input type="radio" name="skills" id="SQL">SQL 
+                    <input type="radio" name="skills" id="Spring">Spring <br>
+                </div>   
+       
+    </div>
+    
+    
+    
+    
+    <div class="form-group">
+    
+        <input type="text" name="cctc" id="cctc" class="form-control" placeholder="CCTC" #text="ngModel" ngModel  >
+        <div *ngIf="text.touched && text.invalid ">
+                <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+    
+        <input type="text" name="ectc" id="ectc" class="form-control" placeholder="ECTC" #text="ngModel" ngModel  >
+        <div *ngIf="text.touched && text.invalid ">
+                <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <input type="text" name="Relocate" id="Relocate" class="form-control" placeholder="Ready to Relocate" #address="ngModel" ngModel required>
+        <div *ngIf="text.touched && text.invalid ">
+            <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+        </div>
+        
+    
+    </div>
+    <div class="form-group">
+            <button type="submit" class="btn btn-outline-success float = right">Schedule Interview</button>
+    </div>
+    
+
+</form>

@@ -1,0 +1,27 @@
+<form [formGroup]="form" action="" class="card card-body col-md-6 form-group offset-3 mt-5" (ngSubmit)="logInData(form)">
+    <h1 class="bg-info text-white" style="text-align: center;">Add Movies</h1>
+    <div class="form-group"> 
+    <input type="text" name="movie" id="movie" class="col-md-8 mt-3 ml-3 form-control" style="padding: 10px;" 
+    placeholder="Add Movies" formControlName="movie" required>
+    <div *ngIf="movie.touched && movie.invalid">
+        <p style="color: red" class="ml-5" *ngIf="movie.errors.required" >*please add movie name</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="text" name="tittle" id="tittle" class="form-control col-md-8 mt-4 ml-3" style="padding: 10px;"
+     placeholder=" movie tittle" formControlName="tittle" required>
+     <div *ngIf="tittle.touched && tittle.invalid">
+        <p style="color: red" class="ml-5" *ngIf="tittle.errors.required" >*please enter tittle</p>
+     </div>
+  </div>
+  <div class="form-group">
+    <input class="form-control col-md-8 mt-3 ml-3 " type="url" placeholder="Movie img Url">
+  </div>
+  <div class="form-group">
+      <textarea class="form-control col-md-8 mt-3 ml-3" name="desc" id="desc" cols="10" style="height: 150px;width: 510px;;" rows="30" placeholder="Movie Description"></textarea>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="float-right bg-info text-white mt-3"
+     style="padding: 2px;font-size: 20px;margin-right: 40px;" [disabled]="form.invalid">Add</button>
+     </div>
+  </form>

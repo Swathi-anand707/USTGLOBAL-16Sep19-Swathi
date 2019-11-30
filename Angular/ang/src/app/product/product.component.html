@@ -1,0 +1,47 @@
+<form action="" class="col-md-4 offset-3 mt-5 card card-body"  #form="ngForm" (ngSubmit)="product(form)">
+    <h1 class="text-center bg-dark text-white"> Product</h1>
+    
+    <div class="form-group">
+        <input type="text" name="pname" id="pname" class="form-control" placeholder="product Name" #text="ngModel" ngModel required>
+        <div *ngIf="text.touched && text.invalid ">
+                <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+        </div>
+    
+    </div>
+    <div class="form-group">
+        <input type="text" name="price" id="price" class="form-control" placeholder="price" #number="ngModel" ngModel required>
+        <div *ngIf="text.touched && text.invalid ">
+            <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+        </div>
+    
+    </div>
+    
+   
+    
+    
+    
+    
+    <div class="form-group">
+            <input type="text" name="price" id="price" class="form-control" placeholder="Product Description" #number="ngModel" ngModel required>
+            <div *ngIf="text.touched && text.invalid ">
+                <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+            </div>
+        
+    </div>
+
+    <div class="form-group">
+    
+        <input type="url" name="image" id="image" class="form-control" placeholder="Product image" #url="ngModel" ngModel  >
+        <div *ngIf="url.touched && url.invalid ">
+                <p class="alert alert-danger" *ngIf="url.errors.required"> This field is required</p>
+        </div>
+    </div>
+    
+    
+   
+    <div class="form-group">
+            <button type="submit" class="btn btn-outline-success float = right">Add Product</button>
+    </div>
+    
+
+</form>

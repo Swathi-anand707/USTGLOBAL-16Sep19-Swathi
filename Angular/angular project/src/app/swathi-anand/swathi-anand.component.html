@@ -1,0 +1,31 @@
+<div class = " row">
+  <div class="col-md-3  float-left" id = "left" >
+      <h5 class = "text-center">Entertainment News</h5>
+      <div class=" col-md-12 card card-body" *ngFor = "let enternews of enterNews">
+          <a href="{{enternews.url}}">
+              <img class = "img-thumbnail" src="{{enternews.urlToImage}}" alt="" srcset="">
+          </a>
+          <h5>{{enternews.title}}</h5>
+      </div>
+  </div>
+          
+  <div class=" col-md-6" id = "mid">
+      <h5 class="text-center">Top Headlines</h5>
+      <div class="col-md-12 card card-body" *ngFor = "let topnews of topNews">
+          <a href="{{topnews.url}}">
+              <img class = "img-thumbnail" src="{{topnews.urlToImage}}" alt="" srcset="">
+          </a>
+          <h5>{{topnews.title}}</h5>
+      </div>
+  </div>
+          
+  <div class="col-md-3  float-right" id = "right">
+      <h5 class="text-center">Sport News</h5>
+      <div class=" col-md-12 card card-body" *ngFor = "let sportnews of sportNews">
+          <a href="{{sportnews.url}}">
+              <img class = "img-thumbnail" src="{{sportnews.urlToImage}}" alt="" srcset="">
+          </a>    
+          <h5>{{sportnews.title}}</h5>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="col-md-4 offset-4 mt-3 ">
+    <select class="form-control "  name = "worldnews" id = "wnews" (change) = "worldNews($event)">
+        <option value = "in">India</option>
+        <option value = "us">United States</option>
+        <option value = "uk">Unnited Kingdom</option>
+        <option value = "ch">China</option>
+    </select> 
+</div>
+<app-indianews [indianews] = "indiaNews"></app-indianews>

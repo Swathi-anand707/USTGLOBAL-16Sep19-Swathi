@@ -1,0 +1,66 @@
+<form action="" class="col-md-4 offset-3 mt-5 card card-body"  #form="ngForm" (ngSubmit)="addRequirement(form)">
+<h1 class="text-center bg-dark text-white"> Requirement Form</h1>
+
+<div class="form-group">
+    <input type="text" name="cname" id="cname" class="form-control" placeholder="Company Name" #text="ngModel" ngModel required>
+    <div *ngIf="text.touched && text.invalid ">
+            <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+    </div>
+
+</div>
+<div class="form-group" >
+    <select name="skills" id="skills"  rows="1" cols="55" required>
+        <option value=" " selected disabled>Skills</option>
+        <option value="Java">Java</option>
+        <option value="J2EE">J2EE</option>
+        <option value="SQL">SQL</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="TypeScript">TypeScript</option>
+        <option value="Angular-Js">Angular-JS</option>
+
+        
+
+
+    </select>
+</div>
+
+<div class="form-group">
+    <input type="number" name="exp" id="exp" class="form-control" placeholder="year of experience" #number="ngModel" ngModel required>
+    <div *ngIf="number.touched && number.invalid ">
+        <p class="alert alert-danger" *ngIf="number.errors.required"> This field is required</p>
+    </div>
+
+</div>
+
+
+
+<div class="form-group">
+
+    <input type="text" name="mctc" id="mctc" class="form-control" placeholder="MCTC" #text="ngModel" ngModel  >
+    <div *ngIf="text.touched && text.invalid ">
+            <p class="alert alert-danger" *ngIf="text.errors.required"> This field is required</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <input type="address" name="address" id="address" class="form-control" placeholder="Address" #address="ngModel" ngModel required>
+    <div *ngIf="number.touched && number.invalid ">
+        <p class="alert alert-danger" *ngIf="address.errors.required"> This field is required</p>
+    </div>
+    
+
+</div>
+<div class="form-group">
+        <button type="submit" class="btn btn-outline-success float = right">Add Requirement</button>
+</div>
+
+
+
+
+
+
+
+
+</form>
