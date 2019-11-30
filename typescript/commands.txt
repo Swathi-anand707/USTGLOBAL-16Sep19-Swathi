@@ -1,0 +1,72 @@
+code . ========= which opens visualcode
+ 
+In typescript is compilation done by tsc space corresponding filename.ts, if its successfully compiled then it willl create app.js file.
+
+
+for angular:
+
+1. npm install -g // installing app globally...... @angular/cli
+
+
+2 ng --version // to check the correct version
+3. c/username/click on hiden item then app data/roaming/npm/node-modular/@angular
+4. ng new app// in desktop command// new app will be created
+5. npm cache clean --force //after deleting cache in roaming np
+ 
+
+create node modules :
+
+cd
+cd ang
+ng serve -o // exception
+
+
+npm install 
+
+source-app-create folder- hml,css,ts,index.html
+in header.component.html write the code
+
+open angular json code:
+
+in 26Th line add 
+"styles": [
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "scripts": [ "node_modules/bootstrap/dist/js/bootstrap.bundle.js"]
+
+
+
+
+
+
+
+ng serve -o
+ after creating npm modules just copy the link port 4200
+
+
+import and export : 
+
+1. first we need to create the import and export.ts file 
+2. for json file press tsc --init
+3. export and IN IMPORT ============import { person } from "./export";
+$. In HTML folder add script src import.js
+
+5. tsc import.ts //js file will be created
+6. type npm init press enter just add package name which should be in small case the press till yes
+7. type npm install systemjs@0.19.36 enter
+8. type tsc -w // it will 
+9.go to the browser then type systemjs 0.19.36 then in documentation copy the browser code
+10.    <script src="node_modules/systemjs/dist/system.js"></script>
+11.         baseURL: '/3.ModuleSystem',
+        defaultJSExtensions : true
+ 12.        SystemJS.import('import.js');
+13. 
+
+12. 
+
+
+
+
+
+
